@@ -355,11 +355,11 @@ Microcontrollers only really understand voltages, and there are two ways a senso
 
 **Reading analogue: the ADC.** The analogue pins are connected to an **analogue-to-digital converter** (ADC): a part of the chip that measures a voltage and turns it into a number. By default the UNO R4 splits 0 to 5 volts into 1024 steps, so 0 V reads as `0`, 5 V reads as `1023`, and 2.5 V reads as about `512`. (The R4's ADC can actually do up to 16,384 steps; look up `analogReadResolution()` if you're curious.)
 
-> **[FIGURE 3.1 — placeholder]** Two graphs side by side over time: a digital signal jumping between 0 and 1, and an analogue signal smoothly rising and falling between 0 and 1023, with the light sensor reading as the example.
+![Two graphs over time. Digital, a push button: the signal jumps straight between 0 (LOW) and 1 (HIGH). Analogue, a light sensor: the signal moves smoothly anywhere between 0 and 1023](images/analogue-vs-digital.svg)
 
 **Writing "analogue": PWM.** Most of the pins can only *output* fully on or fully off. So how does `analogWrite()` dim an LED? It cheats. It switches the pin on and off hundreds of times a second, far too fast for your eyes to see. If the pin is on half of the time, the LED looks half as bright. This trick is called **PWM** (Pulse Width Modulation) and only works on the pins marked **~** (3, 5, 6, 9, 10 and 11).
 
-> **[FIGURE 3.2 — placeholder]** Three PWM waveforms: 10% on (dim), 50% on (medium) and 90% on (bright), each next to an LED drawn at that brightness.
+![Three PWM waveforms. analogWrite(pin, 25) is on 10% of the time and the LED looks dim, analogWrite(pin, 127) is on 50% of the time and looks medium, analogWrite(pin, 230) is on 90% of the time and looks bright](images/pwm.svg)
 
 ### Part 3.2: How sensors talk: protocols
 
@@ -500,7 +500,7 @@ For a digital sensor, change `SENSOR_PIN` to `2` and the `return` line in `readS
 3. Now make it do the *most* it can. Note that number too.
 4. Put them into `SENSOR_MIN` and `SENSOR_MAX`, and pick a `THRESHOLD` somewhere in the middle. For a digital sensor, use `0`, `1` and a `THRESHOLD` of `0`.
 
-> **[FIGURE 3.6 — placeholder]** Screenshot of the Serial Plotter showing the light sensor's reading going up and down as a hand covers and uncovers it, with the min, max and a threshold line marked.
+![A light sensor's reading in the Serial Plotter: it sits around 870 when uncovered, drops to around 130 while a hand covers the sensor, then rises again. Dashed lines mark SENSOR_MAX at 870, THRESHOLD at 500 and SENSOR_MIN at 130](images/serial-plotter-range.svg)
 
 #### Step 3: Choose what the LEDs do
 
