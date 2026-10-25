@@ -156,6 +156,9 @@ Breaking things down like this is how you design anything interactive. When some
 
 **Try it:** pick something near you that reacts to the world (a phone, a toaster, a bike light, a games controller...) and break it into inputs, processes and outputs. What happens if you swap the output for something else?
 
+> [!TIP]
+> This workshop only scratches the surface. For a deeper dive into designing interactive systems, and physical computing as a field, come along to the **Open Access Workshop: Intro to Physical Computing**.
+
 ### Part 1.5: A tour of the UNO R4 WiFi
 
 > **[FIGURE 1.2 — placeholder]** Photo of the UNO R4 WiFi from above, labelling: the RA4M1 chip, the ESP32-S3 module, the USB-C port, the digital pins (0 to 13), the analogue pins (A0 to A5), the power pins (5V, 3.3V, GND), the LED matrix, the RESET button, the "L" LED and the Qwiic connector.
