@@ -453,6 +453,12 @@ The UNO R4 only has three pins that supply power: **5V**, **3.3V** and **IOREF**
 
 The [SENSORS.md](SENSORS.md) cheat sheet tells you which type your sensor is, and points out the odd ones: the joystick has extra wires, the heart rate sensor has a little A/D switch, and the piezo disk is analogue despite being called "digital".
 
+> [!WARNING]
+> **What about VIN?** Next to the GND pins there's a pin labelled **VIN**, and it's tempting to use it as another power pin. Don't! VIN is an *input*: it's connected to the round barrel jack, for powering the board from a 6 to 24 volt power supply. When the board is powered over USB, VIN has nothing on it at all, so your module won't turn on. And if someone does plug in a power supply, VIN carries that supply's full voltage (often 9 or 12 V), which is enough to damage modules designed for 3.3 V or 5 V.
+
+> [!NOTE]
+> **Need more power pins?** The small block of six pins on the right-hand edge of the board, labelled **ICSP**, has a spare **5V** pin and a spare **GND** pin. ICSP stands for In-Circuit Serial Programming: it's mainly there for programming the chip directly, so its pins stick *out* rather than being sockets, and you'll need **male-to-female** jumper wires (female end on the ICSP pin, male end into the Gravity plug) to connect to them. Pin 1 is marked with a small dot or line; 5V is pin 2 (next to it, on the other row) and GND is pin 6 (diagonally opposite pin 1).
+
 > **[FIGURE 3.4 — placeholder]** Diagram of the UNO R4's headers with IOREF, 5V, 3.3V, the three GND pins, pin 2, A0, SDA and SCL highlighted.
 
 > [!TIP]
