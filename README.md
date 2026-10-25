@@ -1,6 +1,6 @@
 # Introduction to Microcontrollers
 
-A 90 to 120 minute workshop where students program an Arduino UNO R4 WiFi, plug in sensors and lights from the DFRobot Gravity sensor kit, and turn what they build into a MIDI controller that plays music on a computer.
+A workshop where students program an Arduino UNO R4 WiFi, plug in sensors and lights from the DFRobot Gravity sensor kit, and turn what they build into a MIDI controller that plays music on a computer.
 
 By the end of the session you'll have built your own interactive system: a sensor of your choosing that controls lights, and then a synth.
 
@@ -14,56 +14,14 @@ The learning objectives are:
 
 ## Contents
 
-- [Introduction to Microcontrollers](#introduction-to-microcontrollers)
-  - [Contents](#contents)
-  - [What's on your desk](#whats-on-your-desk)
-  - [What's in this folder](#whats-in-this-folder)
-  - [Timings](#timings)
-  - [Section 1: What is a Microcontroller?](#section-1-what-is-a-microcontroller)
-    - [Part 1.1: Computers you never see](#part-11-computers-you-never-see)
-    - [Part 1.2: How small is small?](#part-12-how-small-is-small)
-    - [Part 1.3: A short history](#part-13-a-short-history)
-    - [Part 1.4: Thinking in systems](#part-14-thinking-in-systems)
-    - [Part 1.5: A tour of the UNO R4 WiFi](#part-15-a-tour-of-the-uno-r4-wifi)
-  - [Section 2: Hello, World! (Blink)](#section-2-hello-world-blink)
-    - [Part 2.1: The Arduino IDE](#part-21-the-arduino-ide)
-    - [Part 2.2: The Arduino language](#part-22-the-arduino-language)
-    - [Part 2.3: Wire up an LED](#part-23-wire-up-an-led)
-    - [Part 2.4: Upload Blink](#part-24-upload-blink)
-      - [The loop you'll use for the rest of the workshop](#the-loop-youll-use-for-the-rest-of-the-workshop)
-    - [Part 2.5: Make it yours](#part-25-make-it-yours)
-      - [Troubleshooting](#troubleshooting)
-  - [Section 3: Sensors](#section-3-sensors)
-    - [Part 3.1: Analogue and digital](#part-31-analogue-and-digital)
-    - [Part 3.2: How sensors talk: protocols](#part-32-how-sensors-talk-protocols)
-    - [Part 3.3: Libraries](#part-33-libraries)
-    - [Part 3.4: Pick a sensor](#part-34-pick-a-sensor)
-    - [Part 3.5: Find the code](#part-35-find-the-code)
-      - [Where to look](#where-to-look)
-      - [What to look for](#what-to-look-for)
-      - [How to approach it](#how-to-approach-it)
-      - [Wiring your sensor](#wiring-your-sensor)
-    - [Part 3.6: Sensor to LEDs](#part-36-sensor-to-leds)
-      - [Step 1: Paste in your sensor code](#step-1-paste-in-your-sensor-code)
-      - [Step 2: Find your sensor's range](#step-2-find-your-sensors-range)
-      - [Step 3: Choose what the LEDs do](#step-3-choose-what-the-leds-do)
-      - [Better outputs](#better-outputs)
-      - [Troubleshooting](#troubleshooting-1)
-  - [Section 4: Make a MIDI Controller](#section-4-make-a-midi-controller)
-    - [Part 4.1: Outputs can be other systems](#part-41-outputs-can-be-other-systems)
-    - [Part 4.2: MIDI in two minutes](#part-42-midi-in-two-minutes)
-    - [Part 4.3: Our system](#part-43-our-system)
-    - [Part 4.4: Play it](#part-44-play-it)
-      - [Step 1: Upload the MIDI controller sketch](#step-1-upload-the-midi-controller-sketch)
-      - [Step 2: Open the bridge](#step-2-open-the-bridge)
-      - [Step 3: Make it yours](#step-3-make-it-yours)
-      - [Troubleshooting](#troubleshooting-2)
-    - [Part 4.5: Play it in other software (optional)](#part-45-play-it-in-other-software-optional)
-    - [Part 4.6: Extension: be a USB keyboard](#part-46-extension-be-a-usb-keyboard)
-  - [Section 5: Further Reading and References](#section-5-further-reading-and-references)
-    - [Documentation used in this workshop](#documentation-used-in-this-workshop)
-    - [Where to go from here](#where-to-go-from-here)
-  - [Glossary](#glossary)
+- [What's on your desk](#whats-on-your-desk)
+- [What's in this folder](#whats-in-this-folder)
+- [Section 1: What is a Microcontroller?](#section-1-what-is-a-microcontroller)
+- [Section 2: Hello, World! (Blink)](#section-2-hello-world-blink)
+- [Section 3: Sensors](#section-3-sensors)
+- [Section 4: Make a MIDI Controller](#section-4-make-a-midi-controller)
+- [Section 5: Further Reading and References](#section-5-further-reading-and-references)
+- [Glossary](#glossary)
 
 > [!WARNING]
 > **Jargon ahead!** Electronics and programming come with a lot of jargon and acronyms. Don't worry if a word goes over your head, you don't need to remember them all. Whenever you get stuck on one, check the [Glossary](#glossary) at the bottom, ask the internet or ask a technician.
@@ -91,16 +49,6 @@ The learning objectives are:
 | [examples/keyboard_controller](examples/keyboard_controller/keyboard_controller.ino) | Section 4 extension: turns your sensor into a USB keyboard. |
 | [midi-bridge](midi-bridge/index.html) | A web page that turns messages from the Arduino into sound, or sends them on to music software. |
 | [workshop_setup](workshop_setup) | For technicians only: [how to prepare the workshop computers and kits](workshop_setup/README.md). |
-
-## Timings
-
-| Section | Roughly |
-| --- | --- |
-| 1. What is a Microcontroller? | 20 min |
-| 2. Hello, World! (Blink) | 20 min |
-| 3. Sensors | 35 min |
-| 4. Make a MIDI Controller | 25 min |
-| Wrap up, show and tell | 5 to 20 min |
 
 ---
 
@@ -206,7 +154,7 @@ Big systems are made of smaller systems, and the output of one system is often t
 
 Breaking things down like this is how you design anything interactive. When something you've built doesn't work, it's also the best way to find out why: *is the problem in the input, the process or the output?*
 
-**Try it (2 minutes):** pick something near you that reacts to the world (a phone, a toaster, a bike light, a games controller...) and break it into inputs, processes and outputs. What happens if you swap the output for something else?
+**Try it:** pick something near you that reacts to the world (a phone, a toaster, a bike light, a games controller...) and break it into inputs, processes and outputs. What happens if you swap the output for something else?
 
 ### Part 1.5: A tour of the UNO R4 WiFi
 

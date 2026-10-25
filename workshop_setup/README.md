@@ -2,6 +2,18 @@
 
 For technicians and facilitators only. This is everything that needs doing before students arrive, so the session can start straight away without anyone waiting on downloads.
 
+## Timings
+
+The workshop runs for 90 to 120 minutes. Section 3 is where most of the time goes, as students search for and debug code for the sensor they picked, so be ready to help there and to cut Section 4 short (Trigger mode only, no DAW) if needed.
+
+| Section | Roughly |
+| --- | --- |
+| 1. What is a Microcontroller? (including a 2 minute "break it into a system" exercise) | 20 min |
+| 2. Hello, World! (Blink) | 20 min |
+| 3. Sensors | 35 min |
+| 4. Make a MIDI Controller | 25 min |
+| Wrap up, show and tell | 5 to 20 min |
+
 ## Kit per student (or pair)
 
 | Item | Notes |
