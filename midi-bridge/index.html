@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Serial to MIDI Bridge</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Serial &rarr; MIDI Bridge</h1>
+    <p>Reads MIDI messages your Arduino sends over USB Serial, plays them on a built-in synth and/or forwards them to any MIDI app on this computer.</p>
+    <p id="support" class="warning" hidden></p>
+  </header>
+
+  <main>
+    <section class="panel" aria-labelledby="serial-heading">
+      <h2 id="serial-heading"><span class="step">1</span> Arduino (input)</h2>
+      <div class="row">
+        <button id="connect" class="primary">Connect to Arduino</button>
+        <button id="disconnect" hidden>Disconnect</button>
+        <label>Baud rate
+          <select id="baud">
+            <option>9600</option>
+            <option>31250</option>
+            <option selected>115200</option>
+          </select>
+        </label>
+      </div>
+      <p>Status: <strong id="serial-status">Not connected</strong></p>
+      <p class="hint">Close the Arduino IDE's Serial Monitor and Serial Plotter first. Only one program can use the port at a time.</p>
+      <details id="text-box">
+        <summary>Text from the Arduino (<span id="text-count">0</span> lines)</summary>
+        <p class="hint">Anything sent with <code>Serial.print()</code> isn't MIDI, so it shows up here instead of being played.</p>
+        <pre id="text-log"></pre>
+      </details>
+    </section>
+
+    <section class="panel" aria-labelledby="synth-heading">
+      <h2 id="synth-heading"><span class="step">2</span> Built-in synth (output)</h2>
+      <div class="row">
+        <label><input type="checkbox" id="synth-on" checked> Play sound</label>
+        <label>Wave
+          <select id="wave">
+            <option value="sine">Sine</option>
+            <option value="triangle">Triangle</option>
+            <option value="sawtooth" selected>Sawtooth</option>
+            <option value="square">Square</option>
+          </select>
+        </label>
+      </div>
+      <div class="sliders">
+        <label>Volume <span class="hint">(CC 7)</span><input type="range" id="volume" min="0" max="127" value="100"></label>
+        <label>Filter <span class="hint">(any other CC)</span><input type="range" id="cutoff" min="0" max="127" value="90"></label>
+        <label>Attack<input type="range" id="attack" min="0" max="127" value="5"></label>
+        <label>Release<input type="range" id="release" min="0" max="127" value="30"></label>
+      </div>
+    </section>
+
+    <section class="panel" aria-labelledby="midi-heading">
+      <h2 id="midi-heading"><span class="step">3</span> MIDI out (optional)</h2>
+      <div class="row">
+        <label>Send to
+          <select id="midi-out"><option value="">Nothing (built-in synth only)</option></select>
+        </label>
+        <button id="panic" title="Stop every note that is stuck on">Panic! (all notes off)</button>
+      </div>
+      <p class="hint">To reach a DAW (Ableton, Logic, GarageBand, VCV Rack...) on a Mac, switch on the <strong>IAC Driver</strong> in <em>Audio MIDI Setup &rarr; Window &rarr; Show MIDI Studio</em>, pick it here, then pick it as the MIDI input in your app.</p>
+      <p>Status: <strong id="midi-status">Not available yet</strong></p>
+    </section>
+
+    <section class="panel wide" aria-labelledby="keys-heading">
+      <h2 id="keys-heading">What's playing</h2>
+      <div id="piano" aria-label="Piano keyboard"></div>
+      <p class="hint">You can also play with the mouse or your computer keyboard: <kbd>A</kbd> <kbd>W</kbd> <kbd>S</kbd> <kbd>E</kbd> <kbd>D</kbd> <kbd>F</kbd> <kbd>T</kbd> <kbd>G</kbd> <kbd>Y</kbd> <kbd>H</kbd> <kbd>U</kbd> <kbd>J</kbd> <kbd>K</kbd> are the notes, <kbd>Z</kbd> / <kbd>X</kbd> change octave (now: <strong id="octave">C4</strong>). That means an Arduino pretending to be a USB keyboard can play it too.</p>
+      <div id="cc-meters"></div>
+    </section>
+
+    <section class="panel wide" aria-labelledby="log-heading">
+      <h2 id="log-heading">MIDI monitor</h2>
+      <p class="hint">Every message received, newest at the top. Ignored bytes: <strong id="ignored">0</strong></p>
+      <pre id="log"></pre>
+    </section>
+  </main>
+
+  <script src="midi-parser.js"></script>
+  <script src="bridge.js"></script>
+</body>
+</html>
