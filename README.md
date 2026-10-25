@@ -719,6 +719,7 @@ What else could it type? Keyboard shortcuts for a video editor? The space bar to
 - **Draw on the LED matrix.** The R4's built-in 12 × 8 LED matrix can show icons, scrolling text and animations. Try the [LED Matrix editor](https://ledmatrix-editor.arduino.cc/).
 - **Read *Making Things Talk*** by Tom Igoe, and [ITP's Physical Computing site](https://itp.nyu.edu/physcomp/), which grew out of the course that started it all.
 - **Explore the rest of the kit.** There are 37 modules. Which two would make the strangest instrument together?
+- **See what else is out there.** UK shops [Pimoroni](https://shop.pimoroni.com/) and [The Pi Hut](https://thepihut.com/) stock a huge range of sensors, displays, LEDs and microcontroller boards (browse [Pimoroni's sensors](https://shop.pimoroni.com/collections/sensors) and [The Pi Hut's sensors](https://thepihut.com/collections/sensors)). Even if you don't buy anything, they're great for inspiration, and their guides ([Pimoroni Learn](https://learn.pimoroni.com/) and [The Pi Hut's tutorials](https://thepihut.com/blogs/raspberry-pi-tutorials)) show what each part can do. Many of their sensors use I2C, often with a [Qwiic or STEMMA QT](https://www.sparkfun.com/qwiic) plug that fits the UNO R4's Qwiic connector.
 
 ---
 
