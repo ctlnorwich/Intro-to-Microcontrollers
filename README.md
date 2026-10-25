@@ -30,7 +30,7 @@ The learning objectives are:
 
 - An **Arduino UNO R4 WiFi**.
 - A **USB-C cable**.
-- Two **Gravity LED modules** (small boards with a single LED on them).
+- A **Gravity LED module** (a small board with a single LED on it).
 - A **DFRobot Gravity sensor kit** (shared between the table), full of sensors and other modules.
 - Some **Gravity cables** (3 wires ending in a black plug) and **jumper wires** (single wires with a pin on each end).
 - A computer with the **Arduino IDE**, **Google Chrome** and this folder (`Intro-to-Microcontrollers`) already on it.
@@ -42,7 +42,7 @@ The learning objectives are:
 | [README.md](README.md) | This document, the workshop itself. |
 | [SENSORS.md](SENSORS.md) | A cheat sheet for every module in the kit: what it senses, how it talks, which library it needs and where to find its documentation. |
 | [examples/blink](examples/blink/blink.ino) | Section 2: blink an LED. |
-| [examples/sensor_to_leds](examples/sensor_to_leds/sensor_to_leds.ino) | Section 3: a template for making LEDs react to any sensor. **This is the file you'll be changing the most.** |
+| [examples/sensor_to_led](examples/sensor_to_led/sensor_to_led.ino) | Section 3: a template for making an LED react to any sensor. **This is the file you'll be changing the most.** |
 | [examples/midi_controller](examples/midi_controller/midi_controller.ino) | Section 4: turns your sensor into a MIDI controller. |
 | [examples/keyboard_controller](examples/keyboard_controller/keyboard_controller.ino) | Section 4 extension: turns your sensor into a USB keyboard. |
 | [midi-bridge](midi-bridge/index.html) | A web page that turns messages from the Arduino into sound, or sends them on to music software. |
@@ -292,7 +292,7 @@ Every Gravity module has three connections:
 | **Black** | **−** | Ground, completing the circuit | **GND** (either of the two next to 5V) |
 
 1. **Unplug the USB cable** while you're wiring. It's a good habit: it stops anything getting accidentally connected while it's live.
-2. Plug a Gravity cable into one of your LED modules. It only fits one way round.
+2. Plug a Gravity cable into your LED module. It only fits one way round.
 3. Push a jumper wire into each of the three holes in the black plug on the other end of the cable.
 4. Push the other ends of the jumper wires into the Arduino, following the table. The pin names are printed next to the headers on the board.
 5. Plug the USB cable back in.
@@ -328,7 +328,6 @@ Try each of these, uploading after every change:
 1. Change `ON_TIME` and `OFF_TIME` ([lines 21–22](examples/blink/blink.ino#L21-L22)) to make it blink faster or slower. How fast can it go before your eyes can't see the blinking any more?
 2. Make it flash a heartbeat: two quick flashes, then a pause. (Hint: you'll need more `digitalWrite`s and `delay`s inside `loop()`.)
 3. **Challenge:** flash `SOS` in Morse code: three short, three long, three short.
-4. **Challenge:** wire up your second LED module to pin 5 (see [Part 3.6](#part-36-sensor-to-leds) for the wiring) and make the two LEDs take turns, like a railway crossing.
 
 #### Troubleshooting
 
@@ -453,7 +452,7 @@ flowchart LR
 
 #### Wiring your sensor
 
-The UNO R4 only has three pins that supply power: **5V**, **3.3V** and **IOREF**. (IOREF's real job is to tell add-on boards what voltage the Arduino works at. On the UNO R4 it's connected straight to 5V, so we can borrow it as a second 5V pin.) That's enough for **three modules at once**: your sensor and two LEDs. Your first LED is already using 5V, so your sensor uses IOREF.
+The UNO R4 only has three pins that supply power: **5V**, **3.3V** and **IOREF**. (IOREF's real job is to tell add-on boards what voltage the Arduino works at. On the UNO R4 it's connected straight to 5V, so we can borrow it as a second 5V pin.) That's enough for **three modules at once**. Your LED is already using 5V, so your sensor uses IOREF, which leaves 3.3V free if you want to add another output later (see [Better outputs](#better-outputs)).
 
 | Sensor type | Signal | Red (+) | Black (−) |
 | --- | --- | --- | --- |
@@ -474,19 +473,13 @@ Not sure where a pin is? Check the [pinout diagram in Part 1.5](#part-15-a-tour-
 > [!TIP]
 > Got stuck? Being stuck is normal. Read the error message, check the troubleshooting table at the end of this section, try searching the error message itself, and then ask your neighbour or a technician. Explaining your problem out loud to someone often makes the answer obvious (this is known as [rubber duck debugging](https://en.wikipedia.org/wiki/Rubber_duck_debugging)).
 
-### Part 3.6: Sensor to LEDs
+### Part 3.6: Sensor to LED
 
-Now let's connect your input to an output and build a full system. Open [examples/sensor_to_leds/sensor_to_leds.ino](examples/sensor_to_leds/sensor_to_leds.ino) and save your own copy (**File → Save As...**).
+Now let's connect your input to an output and build a full system. Open [examples/sensor_to_led/sensor_to_led.ino](examples/sensor_to_led/sensor_to_led.ino) and save your own copy (**File → Save As...**).
 
 This sketch is a template. It already handles the **process** and **output** parts; you supply the **input**. It's set up for an analogue sensor on **A0**, so if you chose an analogue sensor, it'll work straight away.
 
-Wire up your second LED module as **LED B**. It takes the last power pin, 3.3V. That's a little lower than 5V, so a **red or green** LED module works best here (blue and white ones will be quite dim).
-
-| | Signal | Red (+) | Black (−) |
-| --- | --- | --- | --- |
-| **LED A** (from Section 2) | Green → **pin 3** | **5V** | **GND** next to 5V |
-| **LED B** | Green → **pin 5** | **3.3V** | **GND** at the top, next to pin 13 |
-| **Your sensor** (from Part 3.5) | Pin 2, A0 or SDA/SCL | **IOREF** | **GND** next to 5V |
+There's no new wiring here: keep your LED from Section 2 on **pin 3** and your sensor wired up from [Part 3.5](#wiring-your-sensor).
 
 #### Step 1: Paste in your sensor code
 
@@ -494,10 +487,10 @@ Look for the four places marked `>>> PASTE HERE <<<` in the sketch:
 
 | Section | Lines | What goes there |
 | --- | --- | --- |
-| **1. Libraries** | [26–32](examples/sensor_to_leds/sensor_to_leds.ino#L26-L32) | Any `#include` lines from your example. |
-| **2. Settings** | [58–61](examples/sensor_to_leds/sensor_to_leds.ino#L58-L61) | Any lines from your example that create the sensor, like `DFRobot_Something sensor;`. |
-| **3. Setup** | [67–77](examples/sensor_to_leds/sensor_to_leds.ino#L67-L77) | Anything from your example's `setup()` that starts the sensor (but not its `Serial.begin`). |
-| **4. Input** | [82–89](examples/sensor_to_leds/sensor_to_leds.ino#L82-L89) | The code from your example's `loop()` that reads the sensor. Change `readSensor()` so it `return`s the one number you care about. |
+| **1. Libraries** | [25–31](examples/sensor_to_led/sensor_to_led.ino#L25-L31) | Any `#include` lines from your example. |
+| **2. Settings** | [56–58](examples/sensor_to_led/sensor_to_led.ino#L56-L58) | Any lines from your example that create the sensor, like `DFRobot_Something sensor;`. |
+| **3. Setup** | [64–73](examples/sensor_to_led/sensor_to_led.ino#L64-L73) | Anything from your example's `setup()` that starts the sensor (but not its `Serial.begin`). |
+| **4. Input** | [78–85](examples/sensor_to_led/sensor_to_led.ino#L78-L85) | The code from your example's `loop()` that reads the sensor. Change `readSensor()` so it `return`s the one number you care about. |
 
 For a digital sensor, change `SENSOR_PIN` to `2` and the `return` line in `readSensor()` to `return digitalRead(SENSOR_PIN);`.
 
@@ -510,23 +503,23 @@ For a digital sensor, change `SENSOR_PIN` to `2` and the `return` line in `readS
 
 ![A light sensor's reading in the Serial Plotter: it sits around 870 when uncovered, drops to around 130 while a hand covers the sensor, then rises again. Dashed lines mark SENSOR_MAX at 870, THRESHOLD at 500 and SENSOR_MIN at 130](images/serial-plotter-range.svg)
 
-#### Step 3: Choose what the LEDs do
+#### Step 3: Choose what the LED does
 
 Change `MODE` and upload again to try each one:
 
 | Mode | What it does | Good for |
 | --- | --- | --- |
-| `1` On / off | LED A turns on when the reading goes above `THRESHOLD`. | An alarm, a "something's there" light |
-| `2` Levels | LED A comes on above `THRESHOLD`, then LED B joins it near the top. | A two-step meter |
-| `3` Dimmer | The brightness follows the reading. LED B does the opposite to LED A. | Anything with a range: light, knobs, distance |
-| `4` Blink speed | The higher the reading, the faster LED A blinks. | A Geiger counter, a "getting warmer" game |
+| `1` On / off | The LED turns on when the reading goes above `THRESHOLD`. | An alarm, a "something's there" light |
+| `2` Dimmer | The LED's brightness follows the reading. | Anything with a range: light, knobs, distance |
+| `3` Blink speed | The higher the reading, the faster the LED blinks. | A Geiger counter, a "getting warmer" game |
 
-Look at how each mode is written in `loop()` ([lines 111–138](examples/sensor_to_leds/sensor_to_leds.ino#L111-L138)). They're all just a few lines of `if`, `digitalWrite` and `analogWrite`. Can you invent a mode 5?
+Look at how each mode is written in `loop()` ([lines 107–127](examples/sensor_to_led/sensor_to_led.ino#L107-L127)). They're all just a few lines of `if`, `digitalWrite` and `analogWrite`. Can you invent a mode 4?
 
 #### Better outputs
 
-Two LEDs only go so far. The kit has some much more expressive output modules. Swap one of your LED modules for one of these, using the same power and ground pins (you'll need to find their code too!):
+One LED only goes so far. The kit has some much more expressive output modules. Add one of these alongside your LED, using the spare **3.3V** pin and the **GND** at the top next to pin 13, or swap your LED for it (you'll need to find their code too!):
 
+- **A second LED module** (DFR0021): wire it to pin 5 and you can make two-step level meters, or two lights that take turns like a railway crossing. Red and green ones are brightest on 3.3V; blue and white ones will be quite dim.
 - **RGB LED module** (DFR0605): one LED that can be any colour, e.g. blue when cold, red when hot.
 - **LCD display** (DFR0464): two lines of text with a colour-changing backlight. Show the actual reading, or a message. It uses I2C, so it plugs into SDA and SCL.
 - **Vibration motor** (DFR0440): feel your sensor instead of seeing it. This is called **haptics**, and it's how your phone buzzes.
@@ -543,7 +536,7 @@ Two LEDs only go so far. The kit has some much more expressive output modules. S
 | I2C sensor says it can't be found / `begin failed` | SDA and SCL swapped, or no power. | Check SDA goes to SDA and SCL goes to SCL. Check the sensor's power LED is on. |
 | Analogue readings jump around | Analogue signals are noisy. | Totally normal! Leave a gap between your `THRESHOLD` and where the reading jitters, or average a few readings together. |
 | The Serial Plotter shows nothing | Another window is using the port, or the wrong speed. | Close the Serial Monitor, and check the speed is 115200 baud. |
-| The LEDs don't dim in mode 3 | The LED is on a pin without a **~**. | Use pins 3, 5, 6, 9, 10 or 11. |
+| The LED doesn't dim in mode 2 | The LED is on a pin without a **~**. | Use pins 3, 5, 6, 9, 10 or 11. |
 
 ---
 
@@ -584,7 +577,7 @@ Every message we'll send is just **three numbers**:
 - There are 16 **channels**, so one cable can control 16 different instruments.
 - Almost everything goes from `0` to `127`. That's the biggest number that fits in 7 bits, which kept messages small and fast on 1980s hardware.
 
-Have a look at the helper functions in [midi_controller.ino, lines 64–81](examples/midi_controller/midi_controller.ino#L64-L81). Sending a MIDI message really is just sending three numbers, one after another.
+Have a look at the helper functions in [midi_controller.ino, lines 62–79](examples/midi_controller/midi_controller.ino#L62-L79). Sending a MIDI message really is just sending three numbers, one after another.
 
 The same MIDI messages can travel over the original round 5-pin cables, over USB, over Bluetooth, over a network, or (as we're about to do) over plain Serial.
 
@@ -596,7 +589,7 @@ flowchart LR
     B -- MIDI messages<br>over USB Serial --> C[Serial → MIDI Bridge<br>web page in Chrome]
     C --> D[Built-in synth<br>sound from your speakers]
     C -. optional, via IAC Driver .-> E[Any music software<br>GarageBand, Ableton,<br>Logic, VCV Rack...]
-    B --> F[LED modules<br>visual feedback]
+    B --> F[LED module<br>visual feedback]
 ```
 
 Look at how many systems are chained together here, each with its own inputs and outputs. The Arduino doesn't know or care what happens to its messages after they leave the USB cable. That's the beauty of agreeing on a protocol: you could swap the synth for a lighting desk and the Arduino code wouldn't change at all.
@@ -613,9 +606,9 @@ Look at how many systems are chained together here, each with its own inputs and
 #### Step 1: Upload the MIDI controller sketch
 
 1. Open [examples/midi_controller/midi_controller.ino](examples/midi_controller/midi_controller.ino) and save your own copy.
-2. Copy your sensor code into it, exactly like you did in [Part 3.6](#part-36-sensor-to-leds): any `#include` lines at the top, setup code into `setup()`, and the reading code into `readSensor()` ([lines 87–89](examples/midi_controller/midi_controller.ino#L87-L89)).
-3. Copy your `SENSOR_MIN`, `SENSOR_MAX` and `THRESHOLD` from your sensor_to_leds sketch into the settings ([lines 33–37](examples/midi_controller/midi_controller.ino#L33-L37)).
-4. Pick a `MODE` ([line 45](examples/midi_controller/midi_controller.ino#L45)):
+2. Copy your sensor code into it, exactly like you did in [Part 3.6](#part-36-sensor-to-led): any `#include` lines at the top, setup code into `setup()`, and the reading code into `readSensor()` ([lines 85–87](examples/midi_controller/midi_controller.ino#L85-L87)).
+3. Copy your `SENSOR_MIN`, `SENSOR_MAX` and `THRESHOLD` from your sensor_to_led sketch into the settings ([lines 31–35](examples/midi_controller/midi_controller.ino#L31-L35)).
+4. Pick a `MODE` ([line 43](examples/midi_controller/midi_controller.ino#L43)):
 
 | Mode | What it does | Good for |
 | --- | --- | --- |
@@ -640,7 +633,7 @@ The bridge page has a built-in synth you can change while you play: try the diff
 
 #### Step 3: Make it yours
 
-- Change `NOTE`, `VELOCITY` or the notes in `SCALE` ([lines 46–54](examples/midi_controller/midi_controller.ino#L46-L54)). Try a major scale (`60, 62, 64, 65, 67, 69, 71, 72`) or something stranger.
+- Change `NOTE`, `VELOCITY` or the notes in `SCALE` ([lines 44–52](examples/midi_controller/midi_controller.ino#L44-L52)). Try a major scale (`60, 62, 64, 65, 67, 69, 71, 72`) or something stranger.
 - In Trigger mode, could you make the velocity depend on *how far* over the threshold the reading went?
 - Combine modes: play a note when the reading goes over the threshold **and** send a CC at the same time.
 - The **joystick** (DFR0061) is two analogue sensors and a button in one module: one axis for notes, the other for CC, and the button for... it's up to you.
@@ -676,7 +669,7 @@ Remember the USB controller in the RA4M1? The UNO R4 *can* use it to become a US
 [examples/keyboard_controller](examples/keyboard_controller/keyboard_controller.ino) makes your sensor "type" the keys <kbd>A</kbd> <kbd>S</kbd> <kbd>D</kbd> <kbd>F</kbd> <kbd>G</kbd> <kbd>H</kbd> <kbd>J</kbd> <kbd>K</kbd>. Those keys play the notes C, D, E, F, G, A, B, C in both the bridge page and GarageBand's **Musical Typing** (**Window → Show Musical Typing**, or <kbd>Cmd</kbd> + <kbd>K</kbd>).
 
 > [!CAUTION]
-> A keyboard that types by itself can get out of hand: it will type into *whatever window is in front*. Before uploading, open the bridge page or GarageBand and have it ready. The sketch waits 5 seconds (with LED A on) before it starts typing. If things go wrong, **unplug the USB cable**.
+> A keyboard that types by itself can get out of hand: it will type into *whatever window is in front*. Before uploading, open the bridge page or GarageBand and have it ready. The sketch waits 5 seconds (with the LED on) before it starts typing. If things go wrong, **unplug the USB cable**.
 >
 > While it's being a keyboard, the board might not show up as a normal port, so the IDE can't upload to it. To get it back: plug it in, **double-press the RESET button** quickly (the "L" LED will fade in and out), select the board again in the IDE and upload a different sketch.
 >
@@ -684,7 +677,7 @@ Remember the USB controller in the RA4M1? The UNO R4 *can* use it to become a US
 
 1. Copy your sensor code and settings into the sketch, as before, and pick a `MODE` (`1` holds one key while the sensor is triggered, `2` picks a key from the reading).
 2. Click into the bridge page (or GarageBand) so it's the window in front.
-3. Upload, wait for LED A to turn off, and play.
+3. Upload, wait for the LED to turn off, and play.
 
 What else could it type? Keyboard shortcuts for a video editor? The space bar to make a character in a game jump? Arrow keys to change slides in a presentation? Look up the [Keyboard library reference](https://docs.arduino.cc/language-reference/en/functions/usb/Keyboard/) and the [Mouse library](https://docs.arduino.cc/language-reference/en/functions/usb/Mouse/) too.
 

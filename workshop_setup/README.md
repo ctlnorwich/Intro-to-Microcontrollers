@@ -20,13 +20,13 @@ The workshop runs for 90 to 120 minutes. Section 3 is where most of the time goe
 | --- | --- |
 | Arduino UNO R4 WiFi | Any revision. |
 | USB-C data cable | Must be a *data* cable, not a charge-only one. USB-C to USB-C or USB-A to USB-C to suit the computers. |
-| [DFRobot Gravity 37 PCS Sensor Set](https://www.dfrobot.com/product-1912.html) | One kit per table is fine if students share sensors. Each student needs **two** Gravity LED modules (any colours) and **one** sensor at a time. |
+| [DFRobot Gravity 37 PCS Sensor Set](https://www.dfrobot.com/product-1912.html) | One kit per table is fine if students share sensors. Each student needs **one** Gravity LED module (any colour) and **one** sensor at a time. A second LED module is a nice optional extra for anyone who wants more outputs. |
 | Gravity 3-pin cables | One per module. These come in the kit. |
 | Male-to-male jumper wires | About 12 per student. They push into the black plug on the end of each Gravity cable at one end and into the Uno's headers at the other. |
 | Male-to-female jumper wires (optional) | 2 per student, for anyone who wants a fourth module. The female end goes onto the board's ICSP header pins for extra 5V and GND. |
 
 > [!NOTE]
-> The UNO R4 WiFi only has one 5V pin, one 3.3V pin and three GND pins on its headers, so the workshop is designed around **one sensor and two LED modules at a time**. If you get [Gravity IO Expansion Shields](https://www.dfrobot.com/product-1009.html) in the future, every module plugs straight in and this limit goes away.
+> The UNO R4 WiFi only has one 5V pin, one 3.3V pin and three GND pins on its headers, so the workshop is designed around **one sensor and one LED module at a time**, with the 3.3V pin left spare for one extra output module. If you get [Gravity IO Expansion Shields](https://www.dfrobot.com/product-1009.html) in the future, every module plugs straight in and this limit goes away.
 
 ## Computers
 
@@ -74,7 +74,7 @@ On Windows there is no built-in equivalent; install [loopMIDI](https://www.tobia
 
 1. Plug in each board and upload [examples/blink](../examples/blink/blink.ino) to it, to check the board, cable and computer all work together.
 2. On recent versions of macOS the first time a new USB device is plugged in you may be asked to **Allow accessory to connect**. Click Allow.
-3. Check each kit has its two LED modules, cables and jumpers.
+3. Check each kit has its LED module, cables and jumpers.
 
 ## After the session
 
