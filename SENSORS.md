@@ -2,7 +2,7 @@
 
 Every module in the [DFRobot Gravity 37 PCS Sensor Set](https://www.dfrobot.com/product-1912.html), and what you need to know to plug it into the Arduino UNO R4 WiFi.
 
-- **SKU** is the code printed on the module. Search for it (e.g. `DFR0026 Arduino`) to find more code and projects.
+- **SKU** is the code used by DFRobot. Search for it (e.g. `DFR0026 Arduino`) to find more code and projects.
 - **Wiki** is DFRobot's official page for the module, with a wiring diagram and example code. It's the best place to start.
 - **Library** is what to search for in the Arduino IDE's Library Manager. "None" means you only need `digitalRead()` or `analogRead()`.
 - The wiring in the "Signal to" column matches the [workshop wiring](README.md#wiring-your-sensor). Power (**red**, +) always goes to **IOREF** and ground (**black**, −) to **GND**.

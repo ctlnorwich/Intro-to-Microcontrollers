@@ -40,12 +40,12 @@ const int THRESHOLD = 512;
 //   2 = KNOB:    sends the reading as a Control Change (CC) message, like turning a knob
 //                (great for light, rotation, distance, temperature...). Moves the filter.
 //   3 = THEREMIN: the reading picks a note from a scale, so moving plays a melody
-const int MODE = 1;
+const int MODE = 3;
 
 const int MIDI_CHANNEL = 1;   // 1 to 16
 const int NOTE = 60;          // 60 = middle C. 61 = C#, 62 = D... 72 = the next C up
 const int VELOCITY = 100;     // 1 to 127, how hard the note is "hit"
-const int CC_NUMBER = 74;     // which "knob" we are. 74 is often a filter, 1 is the mod wheel
+const int CC_NUMBER = 7;     // which "knob" we are. 74 is often a filter, 1 is the mod wheel
 
 // Notes for THEREMIN mode: a C minor pentatonic scale over two octaves.
 // Change them to anything you like!

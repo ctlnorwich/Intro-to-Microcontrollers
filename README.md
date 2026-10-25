@@ -400,9 +400,7 @@ Libraries are a perfect example of the open source culture that Arduino grew out
 
 ### Part 3.4: Pick a sensor
 
-Now for the fun part. Open the sensor kit and choose **one sensor** that interests you. Each one is labelled with its name and a code starting with **DFR** or **SEN**, called the **SKU**. You'll need that code to look it up.
-
-The [SENSORS.md](SENSORS.md) cheat sheet lists every module in the kit, what it measures, whether it's digital, analogue or I2C, whether it needs a library, and a link to its official documentation.
+Now for the fun part. Open the sensor kit and choose **one sensor** that interests you. The [SENSORS.md](SENSORS.md) cheat sheet in this directory lists every module in the kit, what it measures, whether it's digital, analogue or I2C, whether it needs a library, and a link to its official documentation.
 
 | If you want... | Try... |
 | --- | --- |
