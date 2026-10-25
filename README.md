@@ -35,8 +35,6 @@ The learning objectives are:
 - Some **Gravity cables** (3 wires ending in a black plug) and **jumper wires** (single wires with a pin on each end).
 - A computer with the **Arduino IDE**, **Google Chrome** and this folder (`Intro-to-Microcontrollers`) already on it.
 
-> **[FIGURE 0.1 — placeholder]** Photo of the workshop kit laid out on a desk: UNO R4 WiFi, USB-C cable, two LED modules, Gravity cables, jumper wires, and the open sensor kit box.
-
 ## What's in this folder
 
 | Folder / file | What it is |
@@ -48,6 +46,7 @@ The learning objectives are:
 | [examples/midi_controller](examples/midi_controller/midi_controller.ino) | Section 4: turns your sensor into a MIDI controller. |
 | [examples/keyboard_controller](examples/keyboard_controller/keyboard_controller.ino) | Section 4 extension: turns your sensor into a USB keyboard. |
 | [midi-bridge](midi-bridge/index.html) | A web page that turns messages from the Arduino into sound, or sends them on to music software. |
+| [images](images) | Photos, diagrams and graphs used in this document. |
 | [workshop_setup](workshop_setup) | For technicians only: [how to prepare the workshop computers and kits](workshop_setup/README.md). |
 
 ---
@@ -130,7 +129,20 @@ Microcontrollers grew up alongside the computers we're more familiar with. Here 
 
 Arduino was designed for people *exactly like you*: artists and designers who wanted to make things that sense and respond to the world, without a degree in electrical engineering.
 
-> **[FIGURE 1.1 — placeholder]** A row of photos, left to right: ENIAC filling a room, the Apollo Guidance Computer, the Intel 4004 chip, the original Arduino, and the UNO R4 WiFi, to show how computers have shrunk.
+<table>
+<tr>
+<td align="center" width="33%"><img src="images/eniac.jpg" alt="ENIAC, a room-sized computer made of rows of cabinets covered in switches and cables, with people working at it" height="160"><br><strong>ENIAC</strong>, 1946</td>
+<td align="center" width="33%"><img src="images/apollo-guidance-computer.jpg" alt="The Apollo Guidance Computer: a metal box about the size of a briefcase, next to its numeric keypad and display" height="160"><br><strong>Apollo Guidance Computer</strong>, 1966</td>
+<td align="center" width="33%"><img src="images/intel-4004.jpg" alt="The Intel 4004 chip: a small white and gold ceramic chip with 16 pins" height="160"><br><strong>Intel 4004</strong>, 1971</td>
+</tr>
+<tr>
+<td align="center"><img src="images/tms1000.jpg" alt="A Texas Instruments TMS1000 chip: a long black plastic chip with two rows of pins" height="160"><br><strong>TI TMS1000</strong>, 1974</td>
+<td align="center"><img src="images/arduino-uno-r3.jpg" alt="A blue Arduino UNO R3 board" height="160"><br><strong>Arduino UNO</strong>, 2010</td>
+<td align="center"><img src="images/arduino-uno-r4-wifi.jpg" alt="A blue Arduino UNO R4 WiFi board with its grid of small LEDs" height="160"><br><strong>Arduino UNO R4 WiFi</strong>, 2023</td>
+</tr>
+</table>
+
+<sub>Images via Wikimedia Commons: <a href="https://commons.wikimedia.org/wiki/File:Classic_shot_of_the_ENIAC.jpg">ENIAC</a> (U.S. Army, public domain), <a href="https://commons.wikimedia.org/wiki/File:Agc_view.jpg">Apollo Guidance Computer</a> (Grabert, public domain), <a href="https://commons.wikimedia.org/wiki/File:Intel_C4004.jpg">Intel 4004</a> (Thomas Nguyen, CC BY-SA 4.0), <a href="https://commons.wikimedia.org/wiki/File:TI_TMS1000NLL_1.jpg">TMS1000</a> (Christian Bassow, CC BY-SA 4.0), <a href="https://commons.wikimedia.org/wiki/File:Arduino_Uno_-_R3.jpg">Arduino UNO R3</a> (SparkFun Electronics, CC BY 2.0), <a href="https://commons.wikimedia.org/wiki/File:Arduino_UNO_R4_WiFi.jpg">Arduino UNO R4 WiFi</a> (Lomrjyo, CC BY-SA 4.0). Resized.</sub>
 
 ### Part 1.4: Thinking in systems
 
@@ -161,7 +173,9 @@ Breaking things down like this is how you design anything interactive. When some
 
 ### Part 1.5: A tour of the UNO R4 WiFi
 
-> **[FIGURE 1.2 — placeholder]** Photo of the UNO R4 WiFi from above, labelling: the RA4M1 chip, the ESP32-S3 module, the USB-C port, the digital pins (0 to 13), the analogue pins (A0 to A5), the power pins (5V, 3.3V, GND), the LED matrix, the RESET button, the "L" LED and the Qwiic connector.
+[![The official Arduino UNO R4 WiFi pinout diagram, showing every pin on the board and what it can do](images/uno-r4-wifi-pinout.png)](images/uno-r4-wifi-pinout.png)
+
+<sub>Pinout diagram by <a href="https://docs.arduino.cc/hardware/uno-r4-wifi/">Arduino</a>, CC BY-SA 4.0. Click it to open it full size.</sub>
 
 | Part | What it does |
 | --- | --- |
@@ -190,7 +204,9 @@ We write code for the Arduino in the **Arduino IDE** (Integrated Development Env
 2. Plug the UNO R4 WiFi into the computer with the USB-C cable. The LED matrix might start showing whatever it was last programmed to do. That's fine!
 3. At the top of the window there is a drop down menu that says **Select Board**. Click it and pick **Arduino UNO R4 WiFi**. If you can see more than one, pick the one that mentions a port with `usbmodem` in the name.
 
-> **[FIGURE 2.1 — placeholder]** Screenshot of the Arduino IDE with each part labelled: Verify (tick), Upload (arrow), the board selector, the Serial Monitor and Serial Plotter buttons (top right), the sketch editor, and the Output panel at the bottom.
+![The Arduino IDE 2 window, labelled: Verify and Upload buttons and the board and port selector along the top, the Serial Plotter and Serial Monitor buttons at the top right, and the Sketchbook, Board Manager, Library Manager, Debugger and Search buttons down the left](images/arduino-ide-2-overview.png)
+
+<sub>Screenshot by <a href="https://docs.arduino.cc/software/ide-v2/tutorials/getting-started-ide-v2/">Arduino</a>, CC BY-SA 4.0. Your board selector will say <em>Arduino UNO R4 WiFi</em>.</sub>
 
 | Button | Name | What it does |
 | --- | --- | --- |
@@ -281,8 +297,6 @@ Every Gravity module has three connections:
 4. Push the other ends of the jumper wires into the Arduino, following the table. The pin names are printed next to the headers on the board.
 5. Plug the USB cable back in.
 
-> **[FIGURE 2.2 — placeholder]** Photo and simple diagram of the LED module wired to the UNO R4: green to pin 3, red to 5V, black to GND, with each pin's label on the board circled.
-
 ### Part 2.4: Upload Blink
 
 1. In the Arduino IDE, go to **File → Open...** and open [examples/blink/blink.ino](examples/blink/blink.ino) from this folder.
@@ -290,8 +304,6 @@ Every Gravity module has three connections:
 3. Click **Upload** (→). The Output panel at the bottom will show a lot of text while it compiles and uploads, finishing with something like `Done!` or `Upload complete`.
 4. Look at the LED module. It should be blinking: on for half a second, off for half a second.
 5. Click the **Serial Monitor** button (top right). Make sure the speed in its bottom-right corner is set to **115200 baud**. You should see `on`, `off`, `on`, `off`... scrolling past. That's the board talking back to the computer.
-
-> **[FIGURE 2.3 — placeholder]** Photo of the LED module lit up, wired to the UNO R4, next to a screenshot of the Serial Monitor showing "on" and "off".
 
 You've just made a system! The input is time passing, the process is your code deciding when to switch, and the output is the light (and the messages to the computer).
 
@@ -403,8 +415,6 @@ The [SENSORS.md](SENSORS.md) cheat sheet lists every module in the kit, what it 
 > [!WARNING]
 > Leave the **relay** (DFR0473) in the box. It's for switching other, bigger circuits, and isn't needed today. The **CO gas sensor** (SEN0132) gets hot while it works and needs a long warm-up, so it's not a good choice for today.
 
-> **[FIGURE 3.3 — placeholder]** Photo of the open sensor kit with a few beginner-friendly sensors pulled out and labelled with their SKU.
-
 ### Part 3.5: Find the code
 
 This workshop doesn't give you the code for your sensor. Instead, you're going to find it, the same way professional engineers and artists do every day. Learning to find, understand and adapt code from the internet is one of the most useful skills in creative technology.
@@ -459,7 +469,7 @@ The [SENSORS.md](SENSORS.md) cheat sheet tells you which type your sensor is, an
 > [!NOTE]
 > **Need more power pins?** The small block of six pins on the right-hand edge of the board, labelled **ICSP**, has a spare **5V** pin and a spare **GND** pin. ICSP stands for In-Circuit Serial Programming: it's mainly there for programming the chip directly, so its pins stick *out* rather than being sockets, and you'll need **male-to-female** jumper wires (female end on the ICSP pin, male end into the Gravity plug) to connect to them. Pin 1 is marked with a small dot or line; 5V is pin 2 (next to it, on the other row) and GND is pin 6 (diagonally opposite pin 1).
 
-> **[FIGURE 3.4 — placeholder]** Diagram of the UNO R4's headers with IOREF, 5V, 3.3V, the three GND pins, pin 2, A0, SDA and SCL highlighted.
+Not sure where a pin is? Check the [pinout diagram in Part 1.5](#part-15-a-tour-of-the-uno-r4-wifi).
 
 > [!TIP]
 > Got stuck? Being stuck is normal. Read the error message, check the troubleshooting table at the end of this section, try searching the error message itself, and then ask your neighbour or a technician. Explaining your problem out loud to someone often makes the answer obvious (this is known as [rubber duck debugging](https://en.wikipedia.org/wiki/Rubber_duck_debugging)).
@@ -477,8 +487,6 @@ Wire up your second LED module as **LED B**. It takes the last power pin, 3.3V. 
 | **LED A** (from Section 2) | Green → **pin 3** | **5V** | **GND** next to 5V |
 | **LED B** | Green → **pin 5** | **3.3V** | **GND** at the top, next to pin 13 |
 | **Your sensor** (from Part 3.5) | Pin 2, A0 or SDA/SCL | **IOREF** | **GND** next to 5V |
-
-> **[FIGURE 3.5 — placeholder]** Photo and diagram of the full system: LED A, LED B and an analogue sensor all wired to the UNO R4 at once.
 
 #### Step 1: Paste in your sensor code
 
@@ -626,7 +634,7 @@ Look at how many systems are chained together here, each with its own inputs and
 2. Click **Connect to Arduino**. Chrome will show a list of devices; choose the one that looks like `UNO R4 WiFi` or `usbmodem...` and click **Connect**.
 3. Play your sensor! You should hear sound, see the keys light up and see messages appear in the **MIDI monitor**.
 
-> **[FIGURE 4.1 — placeholder]** Screenshot of the Serial → MIDI Bridge page connected, with notes lit up on the keyboard and messages in the MIDI monitor.
+![The Serial to MIDI Bridge page connected to an Arduino, with two notes lit up on the on-screen piano and a CC 74 meter showing the filter being moved](images/midi-bridge.png)
 
 The bridge page has a built-in synth you can change while you play: try the different **waves**, and the **attack** (how quickly a note fades in) and **release** (how long it rings on after it stops).
 
