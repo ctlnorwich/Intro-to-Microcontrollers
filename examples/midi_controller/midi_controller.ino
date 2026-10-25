@@ -14,9 +14,8 @@
       2. which note / which knob                e.g. 60  = middle C
       3. how hard / how far                     e.g. 100 = fairly loud
 
-  Wiring is the same as sensor_to_leds:
-    LED module A   signal -> pin 3   (lights up while a note is playing)
-    LED module B   signal -> pin 5   (brightness follows the sensor)
+  Wiring is the same as sensor_to_led:
+    LED module     signal -> pin 3   (shows what the Arduino is sending)
     Your sensor    signal -> A0 (analog) or pin 2 (digital), + -> IOREF
 
   IMPORTANT: close the Serial Monitor and Serial Plotter before connecting
@@ -27,10 +26,9 @@
 // SETTINGS
 // ---------------------------------------------------------------------------
 const int SENSOR_PIN = A0;
-const int LED_A_PIN = 3;
-const int LED_B_PIN = 5;
+const int LED_PIN = 3;
 
-// Copy these from your sensor_to_leds sketch.
+// Copy these from your sensor_to_led sketch.
 // Digital sensors give 0 or 1, so use SENSOR_MAX = 1 and THRESHOLD = 0.
 const int SENSOR_MIN = 0;
 const int SENSOR_MAX = 1023;
@@ -81,7 +79,7 @@ void controlChange(int number, int value) {
 }
 
 // ---------------------------------------------------------------------------
-// INPUT: same as in sensor_to_leds. Paste your sensor code here (and any
+// INPUT: same as in sensor_to_led. Paste your sensor code here (and any
 // #include lines / setup code at the top / in setup()).
 // ---------------------------------------------------------------------------
 int readSensor() {
@@ -98,8 +96,7 @@ float smoothed = 0;
 
 void setup() {
   Serial.begin(115200);
-  pinMode(LED_A_PIN, OUTPUT);
-  pinMode(LED_B_PIN, OUTPUT);
+  pinMode(LED_PIN, OUTPUT);
   pinMode(SENSOR_PIN, INPUT);
   smoothed = readSensor();
 }
@@ -114,10 +111,7 @@ void loop() {
   int value = map((int)smoothed, SENSOR_MIN, SENSOR_MAX, 0, 127);
   value = constrain(value, 0, 127);
 
-  // OUTPUT 1: feedback on the LEDs, so you can see what the Arduino "thinks".
-  analogWrite(LED_B_PIN, value * 2);
-
-  // OUTPUT 2: MIDI
+  // OUTPUT 1: MIDI
   if (MODE == 1) {
     bool triggered = reading > THRESHOLD;
     if (triggered && !notePlaying) {
@@ -133,7 +127,6 @@ void loop() {
       controlChange(CC_NUMBER, value);
       lastValue = value;
     }
-    notePlaying = value > 0;
 
   } else if (MODE == 3) {
     int index = map(value, 0, 127, 0, SCALE_LENGTH - 1);
@@ -146,7 +139,13 @@ void loop() {
     notePlaying = true;
   }
 
-  digitalWrite(LED_A_PIN, notePlaying);
+  // OUTPUT 2: feedback on the LED, so you can see what the Arduino "thinks".
+  // In KNOB mode its brightness follows the value; otherwise it's on while a note plays.
+  if (MODE == 2) {
+    analogWrite(LED_PIN, value * 2);
+  } else {
+    digitalWrite(LED_PIN, notePlaying);
+  }
 
   if (DEBUG) {
     Serial.print("reading: ");

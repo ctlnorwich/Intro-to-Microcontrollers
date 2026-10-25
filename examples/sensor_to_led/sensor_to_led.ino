@@ -1,6 +1,6 @@
 /*
-  Sensor to LEDs
-  ==============
+  Sensor to LED
+  =============
   A template for turning ANY sensor reading into LED behaviour.
   Every physical computing project is the same three steps, over and over:
 
@@ -15,8 +15,7 @@
   straight away with the light sensor, rotation sensor, sound sensor, etc.
 
   Wiring (Arduino UNO R4 WiFi):
-    LED module A   signal -> pin 3,  + -> 5V,    - -> GND
-    LED module B   signal -> pin 5,  + -> 3.3V,  - -> GND (next to pin 13)
+    LED module     signal -> pin 3,  + -> 5V,    - -> GND
     Your sensor    signal -> A0 (analog), pin 2 (digital) or SDA/SCL (I2C),
                    + -> IOREF (it's another 5V pin), - -> GND
 
@@ -36,8 +35,7 @@
 // 2. SETTINGS
 // ---------------------------------------------------------------------------
 const int SENSOR_PIN = A0;   // A0 for analog sensors, 2 for digital sensors
-const int LED_A_PIN = 3;     // must be a pin with a ~ next to it to dim the LED
-const int LED_B_PIN = 5;
+const int LED_PIN = 3;       // must be a pin with a ~ next to it to dim the LED
 
 // The smallest and biggest numbers your sensor actually gives you.
 // Watch the Serial Plotter, cover / shake / turn your sensor, and fill these in.
@@ -45,15 +43,14 @@ const int LED_B_PIN = 5;
 const int SENSOR_MIN = 0;
 const int SENSOR_MAX = 1023;
 
-// Above this number counts as "triggered" (used by modes 1 and 2).
+// Above this number counts as "triggered" (used by mode 1).
 // For a digital sensor (0 or 1) set this to 0.
 const int THRESHOLD = 512;
 
-// What should the LEDs do? Change this number and upload again.
-//   1 = ON / OFF:   LED A switches on when the reading is above THRESHOLD
-//   2 = LEVELS:     LED A on above THRESHOLD, LED B on as well near the top
-//   3 = DIMMER:     LED brightness follows the reading
-//   4 = BLINK SPEED: the higher the reading, the faster LED A blinks
+// What should the LED do? Change this number and upload again.
+//   1 = ON / OFF:    the LED switches on when the reading is above THRESHOLD
+//   2 = DIMMER:      the LED's brightness follows the reading
+//   3 = BLINK SPEED: the higher the reading, the faster the LED blinks
 const int MODE = 1;
 
 // Global variables / objects from the example code (often a line that
@@ -66,8 +63,7 @@ const int MODE = 1;
 // ---------------------------------------------------------------------------
 void setup() {
   Serial.begin(115200);
-  pinMode(LED_A_PIN, OUTPUT);
-  pinMode(LED_B_PIN, OUTPUT);
+  pinMode(LED_PIN, OUTPUT);
   pinMode(SENSOR_PIN, INPUT);
 
   // Anything from the example's setup() that gets the sensor going
@@ -111,29 +107,22 @@ void loop() {
   // OUTPUT
   if (MODE == 1) {
     if (reading > THRESHOLD) {
-      digitalWrite(LED_A_PIN, HIGH);
+      digitalWrite(LED_PIN, HIGH);
     } else {
-      digitalWrite(LED_A_PIN, LOW);
+      digitalWrite(LED_PIN, LOW);
     }
-    digitalWrite(LED_B_PIN, LOW);
     delay(20);
 
   } else if (MODE == 2) {
-    digitalWrite(LED_A_PIN, reading > THRESHOLD);
-    digitalWrite(LED_B_PIN, level > 200);
+    // analogWrite() "dims" an LED by flickering it on and off very fast (PWM).
+    analogWrite(LED_PIN, level);
     delay(20);
 
   } else if (MODE == 3) {
-    // analogWrite() "dims" an LED by flickering it on and off very fast (PWM).
-    analogWrite(LED_A_PIN, level);
-    analogWrite(LED_B_PIN, 255 - level);
-    delay(20);
-
-  } else if (MODE == 4) {
     int waitTime = map(level, 0, 255, 500, 30);
-    digitalWrite(LED_A_PIN, HIGH);
+    digitalWrite(LED_PIN, HIGH);
     delay(waitTime);
-    digitalWrite(LED_A_PIN, LOW);
+    digitalWrite(LED_PIN, LOW);
     delay(waitTime);
   }
 }

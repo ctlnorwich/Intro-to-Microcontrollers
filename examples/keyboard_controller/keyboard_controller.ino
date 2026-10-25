@@ -16,13 +16,13 @@
   If it goes wild, unplug the USB cable. To upload a new sketch afterwards,
   plug it back in and quickly DOUBLE-PRESS the RESET button, then upload.
 
-  Wiring is the same as sensor_to_leds.
+  Wiring is the same as sensor_to_led.
 */
 
 #include <Keyboard.h>
 
 const int SENSOR_PIN = A0;
-const int LED_A_PIN = 3;
+const int LED_PIN = 3;
 
 const int SENSOR_MIN = 0;
 const int SENSOR_MAX = 1023;
@@ -43,13 +43,13 @@ int readSensor() {
 }
 
 void setup() {
-  pinMode(LED_A_PIN, OUTPUT);
+  pinMode(LED_PIN, OUTPUT);
   pinMode(SENSOR_PIN, INPUT);
 
   // Safety delay, with the LED on so you know it's waiting.
-  digitalWrite(LED_A_PIN, HIGH);
+  digitalWrite(LED_PIN, HIGH);
   delay(5000);
-  digitalWrite(LED_A_PIN, LOW);
+  digitalWrite(LED_PIN, LOW);
 
   Keyboard.begin();
 }
@@ -72,6 +72,6 @@ void loop() {
     keyHeld = wanted;
   }
 
-  digitalWrite(LED_A_PIN, keyHeld != 0);
+  digitalWrite(LED_PIN, keyHeld != 0);
   delay(20);
 }
