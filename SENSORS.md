@@ -10,6 +10,7 @@ Every module in the [DFRobot Gravity 37 PCS Sensor Set](https://www.dfrobot.com/
 ## Digital inputs
 
 These give `0` or `1` with `digitalRead()`. Connect the signal (**green**) wire to **pin 2**.
+Polling with `digitalRead()` works well when the sensor stays on or off long enough to read. Some Wiki examples use interrupts to catch brief changes; you can skip that code for this workshop, but polling can miss short pulses.
 
 | SKU | Module | Senses | Reading | Library | Wiki | Watch out for |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -17,8 +18,8 @@ These give `0` or `1` with `digitalRead()`. Connect the signal (**green**) wire 
 | DFR0030 | Capacitive touch | A finger touching the pad | `1` while touched | None | [wiki](https://wiki.dfrobot.com/dfr0030/) | Works through thin paper or plastic. Can be set off by nearby cables. |
 | DFR0028 | Tilt | Being tipped over | Changes between `0` and `1` | None | [wiki](https://wiki.dfrobot.com/dfr0028/) | Just on or off, it can't tell you the angle. |
 | DFR0033 | Magnetic | A magnet nearby | **`0` when a magnet is near**, `1` otherwise | None | [wiki](https://wiki.dfrobot.com/dfr0033/) | Backwards from what you'd expect! Try both ends of the magnet. |
-| SEN0289 | Shake | Being shaken | `0` for a moment when shaken | None | [wiki](https://wiki.dfrobot.com/sen0289/) | Only works when shaken in one direction. Try a few. |
-| DFR0027 | Vibration | Knocks and vibration | Flickers when knocked | None | [wiki](https://wiki.dfrobot.com/dfr0027/) | Gives quick, messy pulses rather than a steady signal. |
+| SEN0289 | Shake | Being shaken | `0` for a moment when shaken | None | [wiki](https://wiki.dfrobot.com/sen0289/) | Only works when shaken in one direction. Try a few. Its brief signal can be missed by polling. |
+| DFR0027 | Vibration | Knocks and vibration | Flickers when knocked | None | [wiki](https://wiki.dfrobot.com/dfr0027/) | Gives quick, messy pulses rather than a steady signal; polling can miss them. |
 | SEN0171 | PIR motion | People moving nearby (up to ~7 m) | `1` when motion is seen, and stays `1` for a few seconds | None | [wiki](https://wiki.dfrobot.com/sen0171/) | Needs 30 to 60 seconds after power-up to settle down. |
 | SEN0223 | Conductivity switch | Something conductive bridging its two probes: metal, skin, fruit... | Changes when the probes are connected | None | [wiki](https://wiki.dfrobot.com/sen0223/) | Very sensitive, so it can be twitchy. Great for touching fruit! |
 
@@ -38,7 +39,7 @@ These give `0` to `1023` with `analogRead()`. Connect the signal (**blue**) wire
 | DFR0052 | Piezo disk vibration | Taps and knocks | A spike, bigger for harder knocks | None | [wiki](https://wiki.dfrobot.com/dfr0052/) | Called "digital" but it's **analogue**: plug it into A0. Great as a drum pad. |
 | SEN0114 | Soil moisture | Water between its two prongs | **Higher = wetter** | None | [wiki](https://wiki.dfrobot.com/sen0114/) | Try a damp tissue or a cup of water. Keep the electronics at the top dry. |
 | SEN0121 | Steam | Water and steam on its sensing strip | Higher = wetter | None | [wiki](https://wiki.dfrobot.com/sen0121/) | Breathe on it! Only the striped part should get wet. |
-| SEN0203 | Heart rate | Your pulse through a fingertip | Analogue: a wavy pulse shape. Digital: a blip per beat | None | [wiki](https://wiki.dfrobot.com/sen0203/) | Has a tiny **A / D switch**. Set it to **D** and use pin 2 with `digitalRead()` for the easy version. Keep your finger still and gentle. |
+| SEN0203 | Heart rate | Your pulse through a fingertip | Analogue: a wavy pulse shape. Digital: a blip per beat | None | [wiki](https://wiki.dfrobot.com/sen0203/) | Has a tiny **A / D switch**. Set it to **D** and use pin 2 with `digitalRead()` to observe its signal, but polling may miss blips and won't reliably count beats. Keep your finger still and gentle. |
 | DFR0061 | Joystick | Two directions and a button | X and Y: `0` to `1023`, about `512` in the middle. Button: `0` when pressed | None | [wiki](https://wiki.dfrobot.com/dfr0061/) | Has **5 wires**: X to **A0**, Y to **A1**, button to **pin 2**. |
 | DFR0051 | Voltage divider | Voltages up to 25 V | Multiply the voltage it reads by 5 | None | [wiki](https://wiki.dfrobot.com/dfr0051/) | For measuring other circuits. Not much use on its own today. |
 | SEN0132 | Carbon monoxide (MQ7) | CO gas | Higher = more gas | None | [wiki](https://wiki.dfrobot.com/sen0132/) | **Not recommended today.** It gets hot and needs minutes to warm up. |

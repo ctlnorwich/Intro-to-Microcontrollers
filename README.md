@@ -435,6 +435,8 @@ Not all code online is good code, or the right code for you. Before you copy any
 - **Find the INPUT.** Which line actually reads the sensor? Look for `analogRead`, `digitalRead`, or a library function like `sensor.read...()`.
 - **Find the OUTPUT.** Most examples print the reading with `Serial.print`. Check what speed they use in `Serial.begin()` and set the Serial Monitor to match.
 
+Some examples use **interrupts**: code that runs immediately when a pin changes. You don't need interrupts for this workshop. For a sensor whose output stays on or off long enough to read, use its signal pin with `digitalRead()` instead. Polling only checks the pin when your program asks, so it can miss very brief pulses; shake, vibration and heart-rate signals are better treated as momentary events, not dependable steady states, with this simple approach. If you want an easy first project, choose a sensor with a clear on/off state, such as the button, touch, tilt, magnetic or PIR module.
+
 #### How to approach it
 
 ```mermaid
@@ -492,7 +494,7 @@ Look for the four places marked `>>> PASTE HERE <<<` in the sketch:
 | **3. Setup** | [64–73](examples/sensor_to_led/sensor_to_led.ino#L64-L73) | Anything from your example's `setup()` that starts the sensor (but not its `Serial.begin`). |
 | **4. Input** | [78–85](examples/sensor_to_led/sensor_to_led.ino#L78-L85) | The code from your example's `loop()` that reads the sensor. Change `readSensor()` so it `return`s the one number you care about. |
 
-For a digital sensor, change `SENSOR_PIN` to `2` and the `return` line in `readSensor()` to `return digitalRead(SENSOR_PIN);`.
+For a digital sensor with a steady on/off state, change `SENSOR_PIN` to `2` and the `return` line in `readSensor()` to `return digitalRead(SENSOR_PIN);`. If the example uses interrupts, you can skip its interrupt setup and handler for this activity. This polling approach may miss very brief pulses, so it is not a reliable way to count events from sensors such as the shake, vibration or heart-rate modules.
 
 #### Step 2: Find your sensor's range
 
