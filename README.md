@@ -629,7 +629,7 @@ Look at how many systems are chained together here, each with its own inputs and
 
 ![The Serial to MIDI Bridge page connected to an Arduino, with two notes lit up on the on-screen piano and a CC 74 meter showing the filter being moved](images/midi-bridge.png)
 
-The bridge page has a built-in synth you can change while you play: try the different **waves**, and the **attack** (how quickly a note fades in) and **release** (how long it rings on after it stops).
+The bridge page has a built-in synth you can change while you play: try the different **waves**, and the **attack** (how quickly a note fades in) and **release** (how long it rings on after it stops). In knob mode the sketch sends **CC 74** by default to control filter cutoff. Other supported controls are **CC 7** for volume, **CC 72** for release and **CC 73** for attack; other CCs are shown in the MIDI monitor but don't change the built-in synth.
 
 #### Step 3: Make it yours
 

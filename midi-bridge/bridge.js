@@ -262,12 +262,18 @@ function handleMessage(bytes, info) {
       if (info.controller === 7) {
         $("volume").value = info.value;
         synth.setVolume(info.value);
+      } else if (info.controller === 72) {
+        $("release").value = info.value;
+        $("release").dispatchEvent(new Event("input"));
+      } else if (info.controller === 73) {
+        $("attack").value = info.value;
+        $("attack").dispatchEvent(new Event("input"));
+      } else if (info.controller === 74) {
+        $("cutoff").value = info.value;
+        synth.setCutoff(info.value);
       } else if (info.controller === 120 || info.controller === 123) {
         synth.allNotesOff();
         clearKeys();
-      } else {
-        $("cutoff").value = info.value;
-        synth.setCutoff(info.value);
       }
       break;
     case "pitchBend":
