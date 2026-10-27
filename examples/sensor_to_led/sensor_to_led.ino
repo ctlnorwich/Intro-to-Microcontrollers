@@ -51,7 +51,7 @@ const int THRESHOLD = 512;
 //   1 = ON / OFF:    the LED switches on when the reading is above THRESHOLD
 //   2 = DIMMER:      the LED's brightness follows the reading
 //   3 = BLINK SPEED: the higher the reading, the faster the LED blinks
-const int MODE = 1;
+const int MODE = 2;
 
 // Global variables / objects from the example code (often a line that
 // creates the sensor, like "DFRobot_Something sensor;").
@@ -115,7 +115,7 @@ void loop() {
 
   } else if (MODE == 2) {
     // analogWrite() "dims" an LED by flickering it on and off very fast (PWM).
-    analogWrite(LED_PIN, level);
+    analogWrite(LED_PIN, 255-level);
     delay(20);
 
   } else if (MODE == 3) {
